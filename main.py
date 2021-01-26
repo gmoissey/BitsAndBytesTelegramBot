@@ -27,17 +27,25 @@ def main():
         now_date = datetime.utcnow()
         
         
-        published_30_minutes_ago = now_date - parsed_date < timedelta(minutes=(60))
+        published_30_minutes_ago = now_date - parsed_date < timedelta(minutes=(60 * 24 * 8))
 
 
         if (published_30_minutes_ago):
             
-            photoURL = title = entry.link
+            photoURL = entry.link
 
             try:
                 html = urlopen(entry.link)
                 bs = BeautifulSoup(html, 'html.parser')
                 images = bs.find_all('img', {'src':re.compile('.jpg')})
+                photoURL = images[0]['src']
+            except:
+                pass
+
+            try:
+                html = urlopen(entry.link)
+                bs = BeautifulSoup(html, 'html.parser')
+                images = bs.find_all('img', {'src':re.compile('.png')})
                 photoURL = images[0]['src']
             except:
                 pass
