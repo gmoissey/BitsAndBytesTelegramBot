@@ -27,7 +27,7 @@ def main():
         now_date = datetime.utcnow()
         
         
-        published_30_minutes_ago = now_date - parsed_date < timedelta(minutes=(60 * 24 * 8))
+        published_30_minutes_ago = now_date - parsed_date < timedelta(minutes=(60))
 
 
         if (published_30_minutes_ago):
@@ -56,4 +56,4 @@ def main():
 if __name__ == "__main__":
     while(True):
         main()
-        sleep(60 * 60 * 24 * 8)
+        sleep(60 * 60)
