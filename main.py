@@ -27,7 +27,7 @@ def main():
         now_date = datetime.utcnow()
         
         
-        published_30_minutes_ago = now_date - parsed_date < timedelta(minutes=(60 * 24 * 8))
+        published_30_minutes_ago = now_date - parsed_date < timedelta(minutes=(60 * 24))
 
 
         if (published_30_minutes_ago):
@@ -54,7 +54,6 @@ def main():
             title = entry.title
             summary = entry.summary
             link = entry.link
-            #photoUrl = entry.links[1]["href"].split("php?url=", 1)[1]
 
             content = ("<b>%s\n</b>%s\n<a href=\"%s\">Continue Reading..</a><a href=\"%s\">.</a>" % (title, summary, link, photoURL))
             send_message(content)
@@ -64,4 +63,4 @@ def main():
 if __name__ == "__main__":
     while(True):
         main()
-        sleep(60 * 60)
+        sleep(60 * 60 * 24)
