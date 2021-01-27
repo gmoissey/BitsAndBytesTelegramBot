@@ -14,7 +14,7 @@ CHANNEL_ID = config.CHANNEL_ID
 FEED_URL = config.FEED_URL
 
 def send_message(content):
-    requests.get(f'https://api.telegram.org/bot{BOT_TOKEN}/sendMessage?chat_id={CHANNEL_ID}&text={content}&parse_mode=HTML')
+    requests.get(f'https://api.telegram.org/bot{BOT_TOKEN}/{content}')
 
 
 def main():
@@ -55,8 +55,15 @@ def main():
             summary = entry.summary
             link = entry.link
 
-            content = ("<b>%s\n</b>%s\n<a href=\"%s\">Continue Reading..</a><a href=\"%s\">.</a>" % (title, summary, link, photoURL))
-            send_message(content)
+            if(photoURL == entry.link):
+                content = ("<b>%s\n</b>%s\n<a href=\"%s\">Continue Reading...</a><a href=\"%s\">.</a>" % (title, summary, link, photoURL))
+                message = f'sendMessage?chat_id={CHANNEL_ID}&text={content}&parse_mode=HTML'
+                send_message(message)
+            else:
+                content = ("<b>%s\n</b>%s\n<a href=\"%s\">Continue Reading...</a>" % (title, summary, link))
+                message = f'sendPhoto?chat_id={CHANNEL_ID}&photo={photoURL}&caption={content}&parse_mode=HTML'
+                send_message(message)
+            
 
 
 
